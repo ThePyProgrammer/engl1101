@@ -158,7 +158,7 @@ function App() {
 
       <footer>
         <div className="wordmark footer-mark"><span className="line-mark"><i /><i /><i /></span><span>Between<br />the Lines</span></div>
-        <p>An English 1101 digital artifact exploring behavior, identity, and public space in Atlanta.</p>
+        <p>Completed as part of ENGL 1101's Artifact 1.</p>
         <a href="#top">Back to top <ArrowUpRight size={15} /></a>
       </footer>
 
