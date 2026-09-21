@@ -8,7 +8,6 @@ import {
 import './styles.css';
 
 const tabs = [
-  { id: 'story', label: 'Full story' },
   { id: 'sound', label: 'Sound & shared space' },
   { id: 'banner', label: 'Then Banner enters' },
   { id: 'city', label: 'A shared Atlanta' },
@@ -30,11 +29,9 @@ function ProgressBar() {
   return <div className="progress" style={{ width: `${progress}%` }} aria-hidden="true" />;
 }
 
-function Section({ id, eyebrow, title, children, activeTab }) {
-  const visible = activeTab === 'story' || activeTab === id;
-  if (!visible) return null;
+function Section({ id, eyebrow, title, children }) {
   return (
-    <section className="article-section reveal" data-section={id}>
+    <section id={id} className="article-section reveal" data-section={id}>
       <div className="section-heading">
         <span>{eyebrow}</span>
         <h2>{title}</h2>
@@ -45,7 +42,6 @@ function Section({ id, eyebrow, title, children, activeTab }) {
 }
 
 function App() {
-  const [activeTab, setActiveTab] = useState('story');
   const [readingTime, setReadingTime] = useState({ minutes: 1, words: 0 });
   const articleRef = useRef(null);
 
@@ -53,11 +49,6 @@ function App() {
     const words = articleRef.current?.textContent.trim().match(/\S+/g)?.length ?? 0;
     setReadingTime({ words, minutes: Math.max(1, Math.ceil(words / 225)) });
   }, []);
-
-  const selectTab = (id) => {
-    setActiveTab(id);
-    window.setTimeout(() => document.querySelector('.article-shell')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 20);
-  };
 
   return (
     <>
@@ -74,7 +65,7 @@ function App() {
 
       <main id="top">
         <section className="hero">
-          <img className="hero-image" src="/assets/marta-car.png" alt="Passengers inside an Atlanta train car at sunset" />
+          <img className="hero-image" src="/assets/marta-750cfe-1024.jpeg" alt="Passengers inside an Atlanta train car at sunset" />
           <div className="hero-wash" />
           <div className="route-line" aria-hidden="true"><span /><span /><span /><span /></div>
           <div className="hero-content">
@@ -96,22 +87,16 @@ function App() {
           </button>
         </section>
 
-        <div className="story-tabs" role="tablist" aria-label="Article sections">
+        <nav className="story-tabs" aria-label="Article sections">
           <span className="tabs-label">Explore the essay</span>
           <div className="tabs-scroll">
             {tabs.map((tab, index) => (
-              <button
-                key={tab.id}
-                role="tab"
-                aria-selected={activeTab === tab.id}
-                className={activeTab === tab.id ? 'active' : ''}
-                onClick={() => selectTab(tab.id)}
-              >
+              <a key={tab.id} href={`#${tab.id}`}>
                 <span>{String(index + 1).padStart(2, '0')}</span>{tab.label}
-              </button>
+              </a>
             ))}
           </div>
-        </div>
+        </nav>
 
         <article className="article-shell" ref={articleRef}>
           <header className="article-intro">
@@ -120,14 +105,14 @@ function App() {
             <p className="standfirst">The first thing MARTA’s new Ride with Respect ad asks you to do is be annoyed.</p>
             <p>A rider blasts music through the enclosed space of a bus. People dance awkwardly. Someone leaves trash behind. None of these actions stops the bus from moving, but together they make the ride feel more chaotic and less shared. Then David Banner appears, and the atmosphere changes.</p>
             <p>That change is the point.</p>
-            <p>MARTA could have delivered the same message through a poster listing rules. Its website already tells riders to use headphones, avoid talking loudly, throw away trash, and show “basic civility.” <a href="https://itsmarta.com/marta-ride-with-respect.aspx?utm_source=chatgpt.com">MARTA</a> Instead, the video turns those rules into a sensory experience. By making viewers hear the difference between a disruptive ride and a respectful one, MARTA frames transit etiquette as something every passenger can feel.</p>
+            <p>MARTA could have delivered the same message through a poster listing rules. Its website already tells riders to use headphones, avoid talking loudly, throw away trash, and show “basic civility.” Instead, the video turns those rules into a sensory experience. By making viewers hear the difference between a disruptive ride and a respectful one, MARTA frames transit etiquette as something every passenger can feel.</p>
             </div>
           </header>
 
-          <Section id="sound" eyebrow="01 / Sound & shared space" title="Sound does most of the work." activeTab={activeTab}>
+          <Section id="sound" eyebrow="01 / Sound & shared space" title="Sound does most of the work.">
             <p className="drop-cap">The music at the beginning is not simply a soundtrack. It behaves like the problem MARTA is trying to address: it takes over a space that everyone has to share. That matters on public transit. You can look away from another passenger. You can avoid a conversation. But in the narrow interior of a bus, you cannot easily opt out of someone else’s speaker.</p>
             <p>Watching the video, I found that irritation familiar. I have ridden MARTA buses before, and the setting looks deliberately ordinary: paired seats, a narrow aisle, strangers positioned close to one another. The campaign does not need to explain why one person's noise can become everyone’s problem. The bus already does that.</p>
-            <p>MARTA's own Ride with Respect page puts the idea plainly: “MARTA belongs to all of us.” <a href="https://itsmarta.com/marta-ride-with-respect.aspx?utm_source=chatgpt.com">MARTA</a> The video gives that sentence a sound. At first, the bus feels like a collection of individuals acting as if the space were theirs alone. The noise makes their private choices public.</p>
+            <p>MARTA's own Ride with Respect page puts the idea plainly: “MARTA belongs to all of us.” The video gives that sentence a sound. At first, the bus feels like a collection of individuals acting as if the space were theirs alone. The noise makes their private choices public.</p>
             <figure className="video-figure">
               <div className="video-frame">
                 <iframe
@@ -144,19 +129,19 @@ function App() {
             </figure>
           </Section>
 
-          <Section id="banner" eyebrow="02 / David Banner" title="Then Banner enters." activeTab={activeTab}>
+          <Section id="banner" eyebrow="02 / David Banner" title="Then Banner enters.">
             <p>Around the middle of the video, he is framed standing in the aisle, shot from a lower angle. His body occupies the center of the bus, and his deep, controlled voice cuts across the silliness and noise that came before him. The campaign moves from scattered movement to attention.</p>
             <p>That shift gives Banner a role bigger than celebrity spokesperson. He becomes the person who restores order to the shared space.</p>
-            <p>MARTA says it chose Banner for his “authenticity, strength, and credibility.” <a href="https://itsmarta.com/marta-partners-with-david-banner.aspx?utm_source=chatgpt.com">MARTA</a> The choice is especially useful in Atlanta. Banner was born in Mississippi, but he has described Atlanta as the city that adopted and embraced him. He also became part of the Southern hip-hop culture closely associated with the city. <a href="https://www.atlutd.com/news/how-atlanta-embraced-david-banner-hip-hop-golden-spike-hitter">atlutd</a> He therefore gives MARTA something an automated announcement cannot: a recognizable human voice with cultural weight.</p>
+            <p>MARTA says it chose Banner for his “authenticity, strength, and credibility.” The choice is especially useful in Atlanta. Banner was born in Mississippi, but he has described Atlanta as the city that adopted and embraced him. He also became part of the Southern hip-hop culture closely associated with the city. He therefore gives MARTA something an automated announcement cannot: a recognizable human voice with cultural weight.</p>
             <p>The campaign is not saying, “Follow this rule because MARTA says so.” Its tone is closer to, “Look around. Other people are here too.”</p>
           </Section>
 
-          <Section id="city" eyebrow="03 / A shared Atlanta" title="The most interesting choice, though, may be the setting itself." activeTab={activeTab}>
+          <Section id="city" eyebrow="03 / A shared Atlanta" title="The most interesting choice, though, may be the setting itself.">
             <p>Atlanta is often advertised through skylines, stadiums, restaurants, music venues, and major events. Ride with Respect shows something much less glamorous: strangers sitting together on a city bus.</p>
             <p>Yet that may be exactly why it works.</p>
             <p>A MARTA bus is one of the places where Atlanta becomes physically shared. Riders who may live in different neighborhoods, have different routines, and never otherwise meet still occupy the same aisle for a few stops. In that space, one rider's music, trash, voice, or courtesy becomes part of another rider's experience of the city.</p>
             <p>The campaign therefore presents Atlanta not simply as a place people move through, but as a place people continually negotiate with one another.</p>
-            <p>That framing also helps explain the timing. MARTA launched this phase after its public-awareness efforts during the 2026 FIFA World Cup, and says the campaign will appear across its digital platforms, stations, trains, buses, and social media. <a href="https://itsmarta.com/marta-partners-with-david-banner.aspx?utm_source=chatgpt.com">MARTA</a> The message follows riders into the same spaces whose behavior it is trying to shape.</p>
+            <p>That framing also helps explain the timing. MARTA launched this phase after its public-awareness efforts during the 2026 FIFA World Cup, and says the campaign will appear across its digital platforms, stations, trains, buses, and social media. The message follows riders into the same spaces whose behavior it is trying to shape.</p>
             <p>There is also a limit to this version of Atlanta.</p>
             <p>Ride with Respect focuses almost entirely on what riders can control. It does not address delays, service frequency, infrastructure, or other frustrations that might shape someone's experience of public transit. That omission does not make the campaign ineffective, but it clarifies its purpose.</p>
             <p>MARTA is isolating one part of the transit experience that passengers produce themselves: the social atmosphere.</p>
