@@ -116,7 +116,7 @@ function App() {
 
       <main id="top">
         <section className="hero">
-          <img className="hero-image" src="/assets/marta-750cfe-1024.jpeg" alt="Passengers inside an Atlanta train car at sunset" />
+          <img className="hero-image" src="/assets/marta-750cfe-1024.jpeg" alt="A MARTA train stopped beside an indoor station platform" />
           <div className="hero-wash" />
           <div className="hero-content">
             <h1>What Does <em>Respect</em> Sound Like?</h1>
@@ -203,6 +203,16 @@ function App() {
             <p>And in MARTA's version of Atlanta, respect is not just something riders are asked to read on a sign. It is something they are supposed to hear, see, and practice together.</p>
           </section>
         </article>
+
+        <section className="works-cited" aria-labelledby="works-cited-heading">
+          <h2 id="works-cited-heading">Works Cited / Media Credits</h2>
+          <div className="citations">
+            <p>“MARTA Partners with David Banner to Launch Next Phase of Ride with Respect Campaign.” <cite>MARTA</cite>, 11 Aug. 2026, <a href="https://itsmarta.com/marta-partners-with-david-banner.aspx">itsmarta.com/marta-partners-with-david-banner.aspx</a>. Accessed 21 Sept. 2026.</p>
+            <p>“MARTA Ride with Respect | David Banner.” <cite>YouTube</cite>, uploaded by MARTA, 11 Aug. 2026, <a href="https://www.youtube.com/watch?v=3d8JPAbC93I">www.youtube.com/watch?v=3d8JPAbC93I</a>. Accessed 21 Sept. 2026.</p>
+            <p>Photograph of a MARTA train at a station platform. <cite>PICRYL</cite>, <a href="https://picryl.com/media/marta-750cfe">picryl.com/media/marta-750cfe</a>. Accessed 21 Sept. 2026.</p>
+            <p>“Ride with Respect.” <cite>MARTA</cite>, <a href="https://itsmarta.com/marta-ride-with-respect.aspx">itsmarta.com/marta-ride-with-respect.aspx</a>. Accessed 21 Sept. 2026.</p>
+          </div>
+        </section>
 
       </main>
 
