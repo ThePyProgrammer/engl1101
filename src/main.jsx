@@ -13,20 +13,71 @@ const tabs = [
   { id: 'city', label: 'A shared Atlanta' },
 ];
 
-function ProgressBar() {
-  const [progress, setProgress] = useState(0);
+const routeStops = [
+  { id: 'top', label: 'Start' },
+  ...tabs,
+  { id: 'end', label: 'End of the line' },
+];
+
+function ReadingRoute() {
+  const [position, setPosition] = useState({ progress: 0, active: 0 });
 
   useEffect(() => {
+    let frame = 0;
     const update = () => {
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
+      frame = 0;
+      const maximum = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      const offset = document.querySelector('.story-tabs')?.offsetHeight ?? 76;
+      const targets = routeStops.map(({ id }, index) => {
+        if (index === 0) return 0;
+        if (index === routeStops.length - 1) return maximum;
+        const element = document.getElementById(id);
+        return Math.min(maximum, Math.max(0, element.getBoundingClientRect().top + window.scrollY - offset));
+      });
+      const scroll = Math.min(maximum, Math.max(0, window.scrollY));
+      let active = 0;
+      while (active < targets.length - 1 && scroll >= targets[active + 1] - 1) active += 1;
+      const distance = targets[active + 1] - targets[active];
+      const fraction = distance > 0 ? Math.min(1, Math.max(0, (scroll - targets[active]) / distance)) : 0;
+      setPosition({ progress: maximum > 0 ? ((active + fraction) / (targets.length - 1)) * 100 : 0, active });
     };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(document.body);
     update();
-    window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
   }, []);
 
-  return <div className="progress" style={{ width: `${progress}%` }} aria-hidden="true" />;
+  return (
+    <nav className="reading-route" aria-label="Reading progress and article stops">
+      <div className="route-track">
+        <div className="route-fill" style={{ height: `${position.progress}%` }} aria-hidden="true" />
+        {routeStops.map((stop, index) => (
+          <a
+            key={stop.id}
+            href={`#${stop.id}`}
+            className={`route-stop${index <= position.active ? ' visited' : ''}${index === position.active ? ' current' : ''}`}
+            style={{ top: `${(index / (routeStops.length - 1)) * 100}%` }}
+            aria-label={stop.label}
+            aria-current={index === position.active ? 'location' : undefined}
+          >
+            <span className="route-dot" aria-hidden="true" />
+            <span className="route-label" aria-hidden="true">{stop.label}</span>
+          </a>
+        ))}
+        <span className="route-reader" style={{ top: `${position.progress}%` }} aria-hidden="true" />
+      </div>
+    </nav>
+  );
 }
 
 function Section({ id, eyebrow, title, children }) {
@@ -52,7 +103,7 @@ function App() {
 
   return (
     <>
-      <ProgressBar />
+      <ReadingRoute />
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Between the Lines home">
           <span className="line-mark"><i /><i /><i /></span>
@@ -67,7 +118,6 @@ function App() {
         <section className="hero">
           <img className="hero-image" src="/assets/marta-750cfe-1024.jpeg" alt="Passengers inside an Atlanta train car at sunset" />
           <div className="hero-wash" />
-          <div className="route-line" aria-hidden="true"><span /><span /><span /><span /></div>
           <div className="hero-content">
             <h1>What Does <em>Respect</em> Sound Like?</h1>
             {/* <h1>Ride with<br /><em>Respect.</em></h1> */}
@@ -99,7 +149,7 @@ function App() {
         </nav>
 
         <article className="article-shell" ref={articleRef}>
-          <header className="article-intro">
+          <header id="intro" className="article-intro">
             <div className="intro-label"><span /> Ride with Respect</div>
             <div className="section-body intro-body">
             <p className="standfirst">The first thing MARTA’s new Ride with Respect ad asks you to do is be annoyed.</p>
@@ -148,7 +198,7 @@ function App() {
             <p>That is why the campaign's sensory strategy matters. A written code of conduct can tell riders what behavior is prohibited. This video tries to make them notice what that behavior feels like to everyone else.</p>
           </Section>
 
-          <section className="closing-note">
+          <section id="closing" className="closing-note">
             <div><span>Last stop</span><h2>The bus keeps moving either way. The question is what kind of shared space moves with it.</h2></div>
             <p>And in MARTA's version of Atlanta, respect is not just something riders are asked to read on a sign. It is something they are supposed to hear, see, and practice together.</p>
           </section>
@@ -156,7 +206,7 @@ function App() {
 
       </main>
 
-      <footer>
+      <footer id="end">
         <div className="wordmark footer-mark"><span className="line-mark"><i /><i /><i /></span><span>Between<br />the Lines</span></div>
         <p>Completed as part of ENGL 1101's Artifact 1.</p>
         <a href="#top">Back to top <ArrowUpRight size={15} /></a>
