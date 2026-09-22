@@ -162,7 +162,8 @@ function App() {
 
           <Section id="sound" eyebrow="01 / Sound & shared space" title="Sound does most of the work.">
             <p className="drop-cap">The music at the beginning is not simply a soundtrack. It behaves like the problem MARTA is trying to address: it takes over a space that everyone has to share. That matters on public transit. You can look away from another passenger. You can avoid a conversation. But in the narrow interior of a bus, you cannot easily opt out of someone else’s speaker.</p>
-            <p>If you ride MARTA regularly, you probably know the feeling. On my own bus rides, the same arrangement stands out: paired seats, a narrow aisle, strangers positioned close to one another. The campaign does not need to explain why one person’s noise can become everyone’s problem. The bus already does that.</p>
+            <p>The awkward dancing makes that intrusion visible. Its exaggeration lets viewers recognize the problem as someone taking over a shared space, whatever they think of the music itself.</p>
+            <p>If you ride MARTA regularly, you probably know the feeling. The bus interior felt familiar from my own experience on MARTA: paired seats, a narrow aisle, strangers positioned close to one another. The campaign does not need to explain why one person’s noise can become everyone’s problem. The bus already does that.</p>
             <p>MARTA's own Ride with Respect page puts the idea plainly: “MARTA belongs to all of us.” The video gives that sentence a sound. At first, the bus feels like a collection of individuals acting as if the space were theirs alone. The noise makes their private choices public.</p>
             <figure className="video-figure">
               <div className="video-frame">
@@ -181,7 +182,7 @@ function App() {
           </Section>
 
           <Section id="banner" eyebrow="02 / David Banner" title="Then Banner enters.">
-            <p>For a transit agency, that change in tone matters. Around the middle of the video, Banner stands in the aisle, shot from below. His deep, controlled voice cuts across the noise. Scattered movement gives way to attention.</p>
+            <p>For a transit agency, that change in tone matters. Around the middle of the video, Banner stands in the aisle, shot from below. His deep, controlled voice cuts across the noise. The bus grows quiet after he enters, making the shift to a calmer shared space audible. Scattered movement gives way to attention.</p>
             <p>Rules about headphones, litter, and courtesy can fade into the background of a station poster or automated announcement. Banner gives those expectations a human voice. Inside a bus, where strangers already negotiate noise, space, and attention, he makes MARTA’s code of conduct feel like a social norm riders are expected to share.</p>
             <p>MARTA says it chose Banner for his “authenticity, strength, and credibility.” Born in Mississippi, he has described Atlanta as the city that adopted and embraced him. His place in the Southern hip-hop culture associated with Atlanta gives that voice cultural weight. He becomes more than a celebrity spokesperson: he restores order to the shared space.</p>
             <p>The campaign is not saying, “Follow this rule because MARTA says so.” Its tone is closer to, “Look around. Other people are here too.”</p>
