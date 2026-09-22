@@ -67,17 +67,25 @@ configuration.
 For the existing **Workers Builds** project, keep these dashboard settings:
 
 - Build command: `npm run build`
-- Deploy command: `npx wrangler deploy`
+- Deploy command: `npx wrangler deploy --config wrangler.jsonc`
 - Root directory: the directory containing this `package.json`
 
 Before deploying, add a `name` field to `wrangler.jsonc` matching the existing
 Worker name in the Cloudflare dashboard. It is intentionally unset until that
-name is confirmed. To check the production build and deployment configuration
-locally without uploading anything (requires Wrangler):
+name is confirmed. Commit and push `wrangler.jsonc` to the branch connected to
+Cloudflare. Local, untracked files are not included when Cloudflare clones the
+repository; retrying a build or creating another Worker will still use the
+configuration from the pushed commit.
+
+The explicit `--config` option makes a missing configuration file an immediate
+error instead of allowing Wrangler to fall back to framework detection.
+
+To check the production build and deployment configuration locally without
+uploading anything (requires Wrangler):
 
 ```sh
 npm run build
-npx wrangler deploy --dry-run
+npx wrangler deploy --config wrangler.jsonc --dry-run
 ```
 
 Cloudflare **Pages** uses a separate setup: choose `npm run build` as the build
