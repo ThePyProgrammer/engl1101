@@ -57,3 +57,32 @@ npm run build
 MDX is compiled by the [official MDX Rollup/Vite integration](https://mdxjs.com/packages/rollup/).
 Page layout lives in `src/components/ArticleLayout.jsx`; the media component is
 `src/components/YouTube.jsx`; styles remain in `src/styles.css`.
+
+## Cloudflare deployment
+
+The site builds into `dist/`. `wrangler.jsonc` explicitly tells Cloudflare Workers
+to serve that directory, so Wrangler does not need to detect or modify the Vite
+configuration.
+
+For the existing **Workers Builds** project, keep these dashboard settings:
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Root directory: the directory containing this `package.json`
+
+Before deploying, add a `name` field to `wrangler.jsonc` matching the existing
+Worker name in the Cloudflare dashboard. It is intentionally unset until that
+name is confirmed. To check the production build and deployment configuration
+locally without uploading anything (requires Wrangler):
+
+```sh
+npm run build
+npx wrangler deploy --dry-run
+```
+
+Cloudflare **Pages** uses a separate setup: choose `npm run build` as the build
+command and `dist` as the output directory. Pages Git integration handles the
+upload automatically; it does not use the Workers `wrangler deploy` command.
+
+See Cloudflare's [static assets configuration](https://developers.cloudflare.com/workers/static-assets/binding/)
+and [Workers Builds settings](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/).
