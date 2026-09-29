@@ -94,6 +94,15 @@ blockquote > span { position: absolute; left: 22px; top: 17px; color: var(--blue
 blockquote p { margin: 0; font: 400 clamp(30px, 3.2vw, 45px)/1.12 'Newsreader', serif; letter-spacing: -.025em; }
 .orange-quote { border-left-color: var(--orange); }
 .orange-quote > span { color: var(--orange); }
+.community-quote { margin: 24px 0; padding: 18px 22px; background: rgba(28,110,140,.06); color: var(--ink); border-left: 3px solid var(--blue); }
+.community-quote blockquote { margin: 0; padding: 0; border: 0; }
+.community-quote blockquote p { margin: 0; color: var(--ink); font: 400 clamp(24px, 2.3vw, 30px)/1.25 'Newsreader', serif; letter-spacing: -.015em; }
+.community-quote em { color: var(--blue); }
+.community-quote figcaption { margin-top: 10px; font: 400 10px/1.6 'DM Mono', monospace; }
+.community-quote cite { font-style: normal; }
+.community-quote figcaption a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.community-quote figcaption a:hover { color: var(--ink); }
+.community-quote figcaption a:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
 .margin-callout { margin: 60px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 20px 0 24px; display: grid; grid-template-columns: 155px 1fr; gap: 25px; }
 .margin-callout span { font: 500 9px/1.4 'DM Mono'; letter-spacing: .1em; color: var(--orange); }
 .margin-callout p { margin: 0; font: 500 19px/1.5 'Manrope'; }
