@@ -1,13 +1,13 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
-export default function YouTube({ id, title = 'YouTube video', children }) {
+export default function YouTube({ id, title = 'YouTube video', compact = false, children }) {
   if (!/^[A-Za-z0-9_-]{11}$/.test(id ?? '')) {
     throw new Error('YouTube requires an 11-character video id.');
   }
 
   return (
-    <figure className="video-figure">
+    <figure className={`video-figure${compact ? ' video-figure--compact' : ''}`}>
       <div className="video-frame">
         <iframe
           src={`https://www.youtube.com/embed/${id}`}
