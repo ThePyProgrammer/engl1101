@@ -48,10 +48,12 @@ img { display: block; width: 100%; }
 .hero h1 { margin: 0; font: 300 clamp(48px, 5.6vw, 84px)/.96 'Newsreader', serif; letter-spacing: -.05em; }
 .hero h1 em { font-weight: 400; font-style: italic; color: #f2af84; }
 .hero-deck { max-width: 540px; font: 400 clamp(16px, 1.4vw, 20px)/1.55 'Manrope', sans-serif; margin: 20px 0 22px; color: rgba(255,255,255,.82); }
-.hero-byline { display: flex; align-items: center; gap: 13px; }
-.author-avatar { width: 39px; height: 39px; display: grid; place-items: center; background: var(--blue); border-radius: 50%; font: 500 11px 'DM Mono'; }
+.hero-byline { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 24px; }
+.byline-author { display: flex; align-items: center; gap: 13px; }
+.author-avatar { width: 39px; height: 39px; flex-shrink: 0; display: grid; place-items: center; background: var(--blue); border-radius: 50%; font: 500 11px 'DM Mono'; }
 .hero-byline p { margin: 0; display: flex; flex-direction: column; gap: 4px; font-size: 11px; letter-spacing: .02em; }
-.hero-byline p span { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,.6); font-size: 10px; }
+.author-role { color: rgba(255,255,255,.75); font-size: 10px; font-weight: 400; line-height: 1.5; }
+.byline-count { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,.65); font-size: 10px; white-space: nowrap; }
 .scroll-cue { position: absolute; z-index: 3; bottom: 18px; right: 4.5vw; display: flex; align-items: center; gap: 14px; background: none; border: 0; color: white; cursor: pointer; font: 400 10px 'DM Mono'; letter-spacing: .03em; }
 .scroll-cue svg { padding: 11px; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.4); border-radius: 50%; transition: .25s; }
 .scroll-cue:hover svg { transform: translateY(4px); border-color: white; }
@@ -185,6 +187,8 @@ footer > a { display: flex; align-items: center; gap: 8px; color: white; text-de
   .hero-image { object-position: 61% center; }
   .hero h1 { font-size: clamp(40px, 10vw, 54px); }
   .hero-deck { margin-top: 18px; line-height: 1.45; }
+  .hero-byline { align-items: flex-start; flex-direction: column; }
+  .byline-count { margin-left: 52px; }
   .scroll-cue { right: 20px; }
   .article-shell { padding-left: 22px; padding-right: 22px; }
   .standfirst { font-size: 34px; }

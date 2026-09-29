@@ -38,6 +38,9 @@ The component provides the responsive player and a “Watch on YouTube” link.
 
 ### Word count
 
+Reading time appears after the author byline as `5 min read (900 words)`. It is
+estimated at 200 words per minute, rounded up, and excludes media playback time.
+
 The byline shows a count computed from the MDX content on every render, including
 development updates. It counts the intro, section headings and prose, closing
 heading and prose, and media captions. It excludes the hero headline and deck,

@@ -86,7 +86,7 @@ async function renderEdit(mdx) {
 }
 
 function displayedCount(html) {
-  const match = html.match(/<\/svg> ([\d,]+) words?<\/span>/);
+  const match = html.match(/\d+ min read \(([\d,]+) words?\)<\/span>/);
   assert.ok(match, 'The byline should display the computed word count');
   return Number(match[1].replaceAll(',', ''));
 }
@@ -120,7 +120,7 @@ test('Vite renders MDX into the existing hero, section layout, media, and credit
   const credits = page.match(/<div class="citations">([\s\S]*?)<\/div>/)?.[1];
   assert.ok(credits?.includes('<p>'));
   assert.ok(displayedCount(page) > 0);
-  assert.doesNotMatch(page, /minute read/);
+  assert.match(page, new RegExp(`${Math.max(1, Math.ceil(displayedCount(page) / 200))} min read`));
 });
 
 test('an MDX paragraph edit immediately changes the displayed word count', async () => {

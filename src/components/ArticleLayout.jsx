@@ -1,5 +1,5 @@
 import React, { Children, cloneElement, isValidElement } from 'react';
-import { ArrowDown, ArrowUpRight, FileText } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Clock } from 'lucide-react';
 import ReadingRoute from './ReadingRoute.jsx';
 import { countArticleWords } from '../lib/article-text.js';
 
@@ -34,6 +34,7 @@ function Wordmark({ footer = false }) {
 
 export function Hero({ metadata, wordCount, children }) {
   const { heading, body } = splitHeading(children, 'h1');
+  const readingMinutes = Math.max(1, Math.ceil(wordCount / 200));
   return (
     <section className="hero">
       <img className="hero-image" src={metadata.image} alt={metadata.imageAlt} />
@@ -43,13 +44,16 @@ export function Hero({ metadata, wordCount, children }) {
         {heading}
         {styleFirstParagraph(body, 'hero-deck')}
         <div className="hero-byline">
-          <div className="author-avatar">{metadata.initials}</div>
-          <p>
-            <strong>{metadata.author}</strong>
-            <span title="Article text, section headings, and media captions; excludes the headline, deck, and credits.">
-              <FileText size={14} aria-hidden="true" /> {wordCount.toLocaleString('en-US')} {wordCount === 1 ? 'word' : 'words'}
-            </span>
-          </p>
+          <div className="byline-author">
+            <div className="author-avatar">{metadata.initials}</div>
+            <p>
+              <strong>{metadata.author}</strong>
+              {metadata.role && <span className="author-role">{metadata.role}</span>}
+            </p>
+          </div>
+          <span className="byline-count" title="Estimated at 200 words per minute, excluding media playback. Word count includes article text, section headings, and captions; excludes the headline, deck, and credits.">
+            <Clock size={14} aria-hidden="true" /> {readingMinutes} min read ({wordCount.toLocaleString('en-US')} {wordCount === 1 ? 'word' : 'words'})
+          </span>
         </div>
       </div>
       <button className="scroll-cue" onClick={() => document.querySelector('.article-shell')?.scrollIntoView({ behavior: 'smooth' })}>
